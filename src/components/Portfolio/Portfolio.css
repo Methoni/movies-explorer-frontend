@@ -1,0 +1,153 @@
+.portfolio {
+  padding: 0 70px 115px;
+}
+
+@media screen and (max-width: 1023px) {
+  .portfolio {
+    padding: 0 50px 80px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .portfolio {
+    padding: 0 35px 70px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .portfolio {
+    padding: 0 14px 70px;
+  }
+}
+
+.portfolio__title {
+  margin: 0;
+  padding-bottom: 30px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.11;
+  color: #8b8b8b;
+}
+
+@media screen and (max-width: 767px) {
+  .portfolio__title {
+    font-size: 14px;
+    padding-bottom: 40px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .portfolio__title {
+    padding-bottom: 20px;
+  }
+}
+
+.portfolio__list {
+  margin: 0;
+  padding: 0;
+}
+
+.portfolio__item {
+  list-style: none;
+  padding: 20px 0 10px;
+  border-bottom: 1px solid #424242;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 1023px) {
+  .portfolio__item {
+    padding-bottom: 9px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .portfolio__item {
+    padding-top: 23px;
+    padding-bottom: 19px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .portfolio__item:nth-of-type(2) {
+    padding-top: 20px;
+    padding-bottom: 19px;
+  }
+}
+
+.portfolio__item:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+@media screen and (max-width: 480px) {
+  .portfolio__item:last-of-type {
+    padding-top: 20px;
+  }
+}
+
+.portfolio__link {
+  text-decoration: none;
+}
+
+.portfolio__link:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.portfolio__project {
+  margin: 0;
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.667;
+  letter-spacing: -1.2px;
+}
+
+@media screen and (max-width: 1023px) {
+  .portfolio__project {
+    font-size: 28px;
+    letter-spacing: -1.12px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .portfolio__project {
+    font-size: 18px;
+    line-height: 1.556;
+    letter-spacing: -0.72px;
+  }
+}
+
+.portfolio__button {
+  padding: 0;
+  width: 29px;
+  height: 60px;
+  border: none;
+  background-color: transparent;
+  background-image: url(../../images/portfolio__button.svg);
+  background-repeat: no-repeat;
+  background-position: 4px 18px;
+  background-size: 20px 18px;
+}
+
+@media screen and (max-width: 1023px) {
+  .portfolio__button {
+    width: 27px;
+    background-size: 20px 16px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .portfolio__button {
+    width: 18px;
+    height: 28px;
+    background-position: 8px 7px;
+    background-size: 10px 10px;
+  }
+}
+
+.portfolio__button:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
