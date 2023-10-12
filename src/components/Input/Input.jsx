@@ -8,6 +8,7 @@ function Input({
   name,
   placeholder,
   minLength,
+  maxLength,
   value,
   isInputValid,
   onChange,
@@ -15,13 +16,14 @@ function Input({
 }) {
   return (
     <>
-      <label className={`input__label_${formType}`}>
+      <label className={`form__input input input__label_${formType}`}>
         <span className={`input__title_${formType}`}>{title}</span>
         <input
           type={type}
           name={name}
           placeholder={placeholder}
           minLength={minLength}
+          maxLength={maxLength}
           className={`input__field_${formType} ${
             isInputValid === undefined || isInputValid
               ? ''

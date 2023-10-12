@@ -26,7 +26,7 @@ function MoviesCard({ movie }) {
   }
 
   return (
-    <li className={`movie-card" ${isRemoved && 'movie-card_removed'}`}>
+    <li className={`movies__card movie-card" ${isRemoved && 'movie-card_removed'}`}>
       <img src={movie.image} alt={movie.name} className="movie-card__image" />
       <div className="movie-card__block">
         <div className="movie-card__text">

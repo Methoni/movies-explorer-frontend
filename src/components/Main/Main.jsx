@@ -6,10 +6,11 @@ import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import './Main.css';
 
 function Main() {
   return (
-    <main className="main">
+    <main className="main page__main">
       <Header name="main" />
       <Promo />
       <AboutProject />

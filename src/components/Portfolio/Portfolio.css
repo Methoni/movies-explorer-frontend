@@ -51,8 +51,6 @@
   list-style: none;
   padding: 20px 0 10px;
   border-bottom: 1px solid #424242;
-  display: flex;
-  justify-content: space-between;
 }
 
 @media screen and (max-width: 1023px) {
@@ -88,6 +86,8 @@
 
 .portfolio__link {
   text-decoration: none;
+  display: flex;
+  justify-content: space-between;
 }
 
 .portfolio__link:hover {

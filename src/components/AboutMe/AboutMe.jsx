@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './AboutMe.css';
-import pic from '../../images/about-me__pic.svg';
+import pic from '../../images/about-me__pic.png';
 
 function AboutMe() {
   return (
-    <section className="about-me">
+    <section className="about-me page__about-me">
       <h2 className="about-me__title">Студент</h2>
       <div className="about-me__container">
         <div className="about-me__text">
@@ -18,13 +17,13 @@ function AboutMe() {
             Контур». После того, как прошёл курс по веб-разработке, начал
             заниматься фриланс-заказами и ушёл с постоянной работы.
           </p>
-          <Link
-            to={'https://github.com/methoni'}
+          <a
+            href="https://github.com/methoni"
             target="_blank"
             className="about-me__link"
           >
             Github
-          </Link>
+          </a>
         </div>
         <img src={pic} alt="Аватар" className="about-me__pic" />
       </div>

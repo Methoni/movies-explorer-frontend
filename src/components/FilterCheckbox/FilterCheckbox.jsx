@@ -3,7 +3,7 @@ import './FilterCheckbox.css';
 
 function FilterCheckbox({ isChecked, handleCheckBoxClick }) {
   return (
-    <label className="checkbox">
+    <label className="search__checkbox checkbox">
       <div className="checkbox__container">
         <input
           type="checkbox"

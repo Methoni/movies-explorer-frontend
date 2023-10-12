@@ -53,7 +53,7 @@ function MoviesCardList({ movies }) {
         isChecked={isChecked}
         handleCheckBoxClick={handleCheckBoxClick}
       />
-      <section className="movies">
+      <section className="movies__section">
         <ul className="movies__list">
           {filteredMovies.slice(0, publishedMovies).map((movie) => (
             <MoviesCard movie={movie} key={movie.id} />

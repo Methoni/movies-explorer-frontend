@@ -23,6 +23,11 @@
   }
 }
 
+.search__form-group {
+  display: flex;
+  flex-direction: column;
+}
+
 .search__form {
   width: 100%;
   margin-bottom: 32px;

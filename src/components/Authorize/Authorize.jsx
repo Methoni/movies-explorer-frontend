@@ -16,17 +16,17 @@ function Authorize({
   linkText,
 }) {
   return (
-    <section className={`authorize__page_${name}`}>
+    <section className={`page__authorize authorize authorize__type_${name}`}>
       {name !== 'profile' && (
         <Link to={'/'} className="authorize__link_home"></Link>
       )}
-      <h2
+      <h1
         className={`authorize__title ${
           name === 'profile' ? 'authorize__title_profile' : ''
         }`}
       >
         {greeting}
-      </h2>
+      </h1>
       <Form
         name={name}
         isValid={isValid}

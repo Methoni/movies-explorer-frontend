@@ -1,36 +1,39 @@
-.authorize__page_register {
+.authorize__type_register {
   margin: 0 auto;
   padding-top: 70px;
+  padding-bottom: 70px;
   max-width: 396px;
 }
 
 @media screen and (max-width: 768px) {
-  .authorize__page_register {
+  .authorize__type_register {
     padding-top: 232px;
+    padding-bottom: 232px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .authorize__page_register {
+  .authorize__type_register {
     padding-top: 56px;
+    padding-bottom: 30px;
     max-width: 260px;
   }
 }
 
-.authorize__page_profile {
+.authorize__type_profile {
   margin: 0 auto;
   padding-top: 74px;
   max-width: 410px;
 }
 
 @media screen and (max-width: 768px) {
-  .authorize__page_profile {
+  .authorize__type_profile {
     padding-top: 236px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .authorize__page_profile {
+  .authorize__type_profile {
     padding-top: 70px;
     max-width: 260px;
   }
@@ -70,7 +73,7 @@
 }
 
 .authorize__title_profile {
-  margin: 0 0 106px;
+  margin: 0 0 123px;
   text-align: center;
 }
 

@@ -15,12 +15,14 @@ function Header({ name, loggedIn }) {
   }
 
   return (
-    <header className={`header ${name !== 'main' ? 'header_black' : ''}`}>
+    <header
+      className={`page__header header ${name !== 'main' ? 'header_black' : ''}`}
+    >
       <div>
         <Link
           to={'/'}
           className={`header__logo header__link ${
-            pathname === '/' ? 'header__link_disabled' : ''
+            pathname === '/' ? 'header__logo_disabled' : ''
           }`}
         ></Link>
       </div>
@@ -55,9 +57,9 @@ function Header({ name, loggedIn }) {
               <li className="header__link_wrap">
                 <Link
                   to={'/'}
-                  className={`header__main header__link_auth ${
-                    pathname === '/' ? 'header__link_disabled' : ''
-                  }`}
+                  className={`header__main header__link_auth
+                  ${pathname === '/' ? 'header__link_disabled' : ''}
+                  `}
                 >
                   Главная
                 </Link>

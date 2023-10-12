@@ -1,32 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './Footer.css';
 
 function Footer() {
   const date = new Date().getFullYear();
 
   return (
-    <footer className="footer">
+    <footer className="footer page__footer">
       <p className="footer__title">
         Учебный проект Яндекс.Практикум х BeatFilm.
       </p>
       <div className="footer__container">
         <p className="footer__date">&copy; {date}</p>
         <nav className="footer__nav">
-          <Link
-            to={'https://practicum.yandex.ru/'}
+          <a
+            href="https://practicum.yandex.ru/"
             target="_blank"
             className="footer__link"
           >
             Яндекс.Практикум
-          </Link>
-          <Link
-            to={'https://github.com/methoni'}
+          </a>
+          <a
+            href="https://github.com/methoni"
             target="_blank"
             className="footer__link"
           >
             Github
-          </Link>
+          </a>
         </nav>
       </div>
     </footer>

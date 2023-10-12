@@ -3,6 +3,7 @@ import Authorize from '../Authorize/Authorize';
 import Input from '../Input/Input';
 import { useNavigate } from 'react-router-dom';
 import useFormWithValidation from '../hooks/useFormWithValidation';
+import '../Main/Main.css';
 
 function Register() {
   const navigate = useNavigate();
@@ -21,53 +22,57 @@ function Register() {
   }
 
   return (
-    <Authorize
-      name="register"
-      greeting="Добро пожаловать!"
-      isValid={isFormValid}
-      error="При регистрации пользователя произошла ошибка."
-      buttonText="Зарегистрироваться"
-      onSubmit={onLogin}
-      text="Уже зарегистрированы? "
-      link="/signin"
-      linkText="Войти"
-    >
-      <Input
-        formType="login"
-        title="Имя"
-        type="text"
-        name="username"
-        placeholder="Имя"
-        minLength="3"
-        value={inputValues.username}
-        isInputValid={isInputValid.username}
-        error={errorMessages.username}
-        onChange={handleChange}
-      />
-      <Input
-        formType="login"
-        title="E-mail"
-        type="email"
-        name="email"
-        placeholder="E-mail"
-        value={inputValues.email}
-        isInputValid={isInputValid.email}
-        error={errorMessages.email}
-        onChange={handleChange}
-      />
-      <Input
-        formType="login"
-        title="Пароль"
-        type="password"
-        name="password"
-        placeholder="Пароль"
-        minLength="3"
-        value={inputValues.password}
-        isInputValid={isInputValid.password}
-        error={errorMessages.password}
-        onChange={handleChange}
-      />
-    </Authorize>
+    <main className="main page__register register">
+      <Authorize
+        name="register"
+        greeting="Добро пожаловать!"
+        isValid={isFormValid}
+        error="При регистрации пользователя произошла ошибка."
+        buttonText="Зарегистрироваться"
+        onSubmit={onLogin}
+        text="Уже зарегистрированы? "
+        link="/signin"
+        linkText="Войти"
+      >
+        <Input
+          formType="login"
+          title="Имя"
+          type="text"
+          name="username"
+          placeholder="Имя"
+          minLength="3"
+          maxLength="40"
+          value={inputValues.username}
+          isInputValid={isInputValid.username}
+          error={errorMessages.username}
+          onChange={handleChange}
+        />
+        <Input
+          formType="login"
+          title="E-mail"
+          type="email"
+          name="email"
+          placeholder="E-mail"
+          value={inputValues.email}
+          isInputValid={isInputValid.email}
+          error={errorMessages.email}
+          onChange={handleChange}
+        />
+        <Input
+          formType="login"
+          title="Пароль"
+          type="password"
+          name="password"
+          placeholder="Пароль"
+          minLength="3"
+          maxLength="200"
+          value={inputValues.password}
+          isInputValid={isInputValid.password}
+          error={errorMessages.password}
+          onChange={handleChange}
+        />
+      </Authorize>
+    </main>
   );
 }
 

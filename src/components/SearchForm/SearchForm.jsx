@@ -23,34 +23,36 @@ function SearchForm({ isChecked, handleCheckBoxClick }) {
   }
 
   return (
-    <section className="search">
+    <section className="movies__search search" aria-label="Форма поиска">
       <div className="search__container">
         <form
           noValidate
-          className="search__form"
+          className="search__form-group"
           name={'SearchForm'}
           onSubmit={onFormSubmit}
         >
-          <input
-            type="text"
-            name="search"
-            placeholder="Фильм"
-            className="search__input"
-            value={inputValues.search}
-            onChange={handleInputChange}
-            required
+          <div className="search__form">
+            <input
+              type="text"
+              name="search"
+              placeholder="Фильм"
+              className="search__input"
+              value={inputValues.search}
+              onChange={handleInputChange}
+              required
+            />
+            <button type="submit" className="search__button"></button>
+          </div>
+          <FilterCheckbox
+            isChecked={isChecked}
+            handleCheckBoxClick={handleCheckBoxClick}
           />
-          <button type="submit" className="search__button"></button>
         </form>
         <span
           className={`search__error ${!isValid && 'search__error_visible'}`}
         >
           {!isValid && 'Нужно ввести ключевое слово'}
         </span>
-        <FilterCheckbox
-          isChecked={isChecked}
-          handleCheckBoxClick={handleCheckBoxClick}
-        />
       </div>
     </section>
   );

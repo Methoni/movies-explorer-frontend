@@ -1,21 +1,21 @@
-.movies {
+.movies__section {
   padding: 65px 70px 80px;
 }
 
 @media screen and (max-width: 1023px) {
-  .movies {
+  .movies__section {
     padding: 65px 30px 80px;
   }
 }
 
 @media screen and (max-width: 767px) {
-  .movies {
+  .movies__section {
     padding: 50px 10px 80px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .movies {
+  .movies__section {
     padding-top: 40px;
   }
 }
