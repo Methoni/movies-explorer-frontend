@@ -1,0 +1,217 @@
+import image from '../images/movie-card__image.png';
+
+export const movies = [
+  {
+    id: 1,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 20,
+  },
+  {
+    id: 2,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 30,
+  },
+  {
+    id: 3,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 39,
+  },
+  {
+    id: 4,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 45,
+  },
+  {
+    id: 5,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 23,
+  },
+  {
+    id: 6,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 55,
+  },
+  {
+    id: 7,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 67,
+  },
+  {
+    id: 8,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 72,
+  },
+  {
+    id: 9,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 125,
+  },
+  {
+    id: 10,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 172,
+  },
+  {
+    id: 11,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 86,
+  },
+  {
+    id: 12,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 96,
+  },
+  {
+    id: 13,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 15,
+  },
+  {
+    id: 14,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 21,
+  },
+  {
+    id: 15,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 164,
+  },
+  {
+    id: 16,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 66,
+  },
+  {
+    id: 17,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 12,
+  },
+  {
+    id: 18,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 7,
+  },
+  {
+    id: 19,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 17,
+  },
+  {
+    id: 20,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 9,
+  },
+  {
+    id: 21,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 16,
+  },
+  {
+    id: 22,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 11,
+  },
+  {
+    id: 23,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 189,
+  },
+  {
+    id: 24,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 115,
+  },
+  {
+    id: 25,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 245,
+  },
+];
+
+export const savedMovies = [
+  {
+    id: 1,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 20,
+  },
+  {
+    id: 2,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 30,
+  },
+  {
+    id: 3,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 39,
+  },
+  {
+    id: 4,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 45,
+  },
+  {
+    id: 5,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 23,
+  },
+  {
+    id: 6,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 55,
+  },
+  {
+    id: 7,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 67,
+  },
+  {
+    id: 8,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 72,
+  },
+  {
+    id: 9,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 125,
+  },
+  {
+    id: 10,
+    name: '33 слова о дизайне',
+    image: image,
+    duration: 172,
+  },
+];
