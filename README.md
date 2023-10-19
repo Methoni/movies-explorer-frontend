@@ -5,3 +5,5 @@
 ## Макет dark-5
 
 ## Проект на [ВМ](https://movies.methoni.nomoredomainsrocks.ru)
+
+## Ссылка на [Pull request](https://github.com/Methoni/movies-explorer-frontend/pull/2)
