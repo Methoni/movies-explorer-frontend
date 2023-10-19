@@ -1,13 +1,10 @@
 import React from 'react';
 import Authorize from '../Authorize/Authorize';
 import Input from '../Input/Input';
-import { useNavigate } from 'react-router-dom';
 import useFormWithValidation from '../hooks/useFormWithValidation';
 import '../Main/Main.css';
 
-function Register() {
-  const navigate = useNavigate();
-
+function Register({ onRegister, isError, setFormMessages }) {
   const {
     inputValues,
     errorMessages,
@@ -16,9 +13,9 @@ function Register() {
     handleChange,
   } = useFormWithValidation();
 
-  function onLogin(event) {
+  function onSubmit(event) {
     event.preventDefault();
-    navigate('/signin');
+    onRegister(inputValues.username, inputValues.email, inputValues.password);
   }
 
   return (
@@ -27,9 +24,11 @@ function Register() {
         name="register"
         greeting="Добро пожаловать!"
         isValid={isFormValid}
-        error="При регистрации пользователя произошла ошибка."
+        isError={isError}
+        errorText="При регистрации пользователя произошла ошибка."
+        setFormMessages={setFormMessages}
         buttonText="Зарегистрироваться"
-        onSubmit={onLogin}
+        onSubmit={onSubmit}
         text="Уже зарегистрированы? "
         link="/signin"
         linkText="Войти"

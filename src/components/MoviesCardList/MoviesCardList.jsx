@@ -1,26 +1,46 @@
 import React from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import SearchForm from '../SearchForm/SearchForm';
+import Preloader from '../Preloader/Preloader';
 import './MoviesCardList.css';
 
-function MoviesCardList({ movies }) {
+function MoviesCardList({ movies, addMovie, isLoading }) {
   const [isChecked, setIsChecked] = React.useState(false);
-  const [filteredMovies, setFilteredMovies] = React.useState(movies);
+  const [searchResult, setSearchResult] = React.useState('');
+  const [filteredMovies, setFilteredMovies] = React.useState([]);
   const [publishedMovies, setPublishedMovies] = React.useState(
     publishMovies().base
   );
+  const [isEmpty, setIsEmpty] = React.useState(true);
 
   function handleCheckBoxClick() {
     if (isChecked === false) {
       setIsChecked(true);
-      setFilteredMovies(
-        filteredMovies.filter((element) => element.duration <= 40)
-      );
+      filterMovies(searchResult, true, movies);
     } else {
       setIsChecked(false);
-      setFilteredMovies(movies);
+      filterMovies(searchResult, false, movies);
     }
   }
+
+  function searchMovies(searchRequest) {
+    filterMovies(searchRequest, isChecked, movies);
+    if (movies.length > 0) {
+      setIsEmpty(false);
+    }
+  }
+
+  const filterMovies = React.useCallback((searchRequest, isChecked, movies) => {
+    setSearchResult(searchRequest);
+    setFilteredMovies(
+      movies.filter((movie) => {
+        const searchResult = movie.nameRU
+          .toLowerCase()
+          .includes(searchRequest.toLowerCase());
+        return isChecked ? searchResult && movie.duration <= 40 : searchResult;
+      })
+    );
+  }, []);
 
   function publishMovies() {
     const counter = {};
@@ -48,28 +68,40 @@ function MoviesCardList({ movies }) {
   }
 
   return (
-    <>
+    <main className="main page__movies movies">
       <SearchForm
         isChecked={isChecked}
         handleCheckBoxClick={handleCheckBoxClick}
+        searchMovies={searchMovies}
       />
-      <section className="movies__section">
-        <ul className="movies__list">
-          {filteredMovies.slice(0, publishedMovies).map((movie) => (
-            <MoviesCard movie={movie} key={movie.id} />
-          ))}
-        </ul>
-        <button
-          type="button"
-          className={`movies__more ${
-            publishedMovies >= movies.length && 'movies__more_hidden'
-          }`}
-          onClick={addMore}
-        >
-          Ещё
-        </button>
-      </section>
-    </>
+
+      {isLoading ? (
+        <Preloader />
+      ) : (
+        !isEmpty && (
+          <section className="movies__section">
+            <ul className="movies__list">
+              {filteredMovies.slice(0, publishedMovies).map((cardData) => (
+                <MoviesCard
+                  cardData={cardData}
+                  key={cardData.id}
+                  addMovie={addMovie}
+                />
+              ))}
+            </ul>
+            <button
+              type="button"
+              className={`movies__more ${
+                publishedMovies >= movies.length && 'movies__more_hidden'
+              }`}
+              onClick={addMore}
+            >
+              Ещё
+            </button>
+          </section>
+        )
+      )}
+    </main>
   );
 }
 

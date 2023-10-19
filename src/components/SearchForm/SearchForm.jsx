@@ -3,7 +3,7 @@ import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import useFormWithValidation from '../hooks/useFormWithValidation';
 
-function SearchForm({ isChecked, handleCheckBoxClick }) {
+function SearchForm({ isChecked, handleCheckBoxClick, searchMovies }) {
   const [isValid, setIsValid] = React.useState(true);
   const { inputValues, isFormValid, handleChange } = useFormWithValidation();
 
@@ -11,7 +11,7 @@ function SearchForm({ isChecked, handleCheckBoxClick }) {
     event.preventDefault();
     if (isFormValid) {
       setIsValid(true);
-      return;
+      searchMovies(event.target.search.value);
     } else {
       setIsValid(false);
     }

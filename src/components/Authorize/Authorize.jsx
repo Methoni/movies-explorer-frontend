@@ -8,12 +8,17 @@ function Authorize({
   greeting,
   children,
   isValid,
+  isError,
   errorText,
   buttonText,
   onSubmit,
+  isSuccessful,
+  successText,
+  setFormMessages,
   text,
   link,
   linkText,
+  onLinkClick,
 }) {
   return (
     <section className={`page__authorize authorize authorize__type_${name}`}>
@@ -30,9 +35,13 @@ function Authorize({
       <Form
         name={name}
         isValid={isValid}
+        isError={isError}
         errorText={errorText}
         buttonText={buttonText}
         onSubmit={onSubmit}
+        isSuccessful={isSuccessful}
+        successText={successText}
+        setFormMessages={setFormMessages}
       >
         {children}
       </Form>
@@ -44,6 +53,7 @@ function Authorize({
           className={`authorize__link ${
             name === 'profile' ? 'authorize__link_profile' : ''
           }`}
+          onClick={onLinkClick}
         >
           {linkText}
         </Link>

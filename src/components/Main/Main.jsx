@@ -8,17 +8,19 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import './Main.css';
 
-function Main() {
+function Main({ loggedIn }) {
   return (
-    <main className="main page__main">
-      <Header name="main" />
-      <Promo />
-      <AboutProject />
-      <Techs />
-      <AboutMe />
-      <Portfolio />
+    <>
+      <Header name="main" loggedIn={loggedIn} />
+      <main className="main page__main">
+        <Promo />
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+        <Portfolio />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
 

@@ -14,7 +14,7 @@ function Portfolio() {
               className="portfolio__link"
             >
               <p className="portfolio__project">Статичный сайт</p>
-              <button type="button" className="portfolio__button"></button>
+              <span className="portfolio__button"></span>
             </a>
           </li>
           <li className="portfolio__item">
@@ -24,7 +24,7 @@ function Portfolio() {
               className="portfolio__link"
             >
               <p className="portfolio__project">Адаптивный сайт</p>
-              <button type="button" className="portfolio__button"></button>
+              <span className="portfolio__button"></span>
             </a>
           </li>
           <li className="portfolio__item">
@@ -34,7 +34,7 @@ function Portfolio() {
               className="portfolio__link"
             >
               <p className="portfolio__project">Одностраничное приложение</p>
-              <button type="button" className="portfolio__button"></button>
+              <span className="portfolio__button"></span>
             </a>
           </li>
         </ul>

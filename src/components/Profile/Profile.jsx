@@ -4,8 +4,11 @@ import Input from '../Input/Input';
 import Header from '../Header/Header';
 import useFormWithValidation from '../hooks/useFormWithValidation';
 import '../Main/Main.css';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Profile() {
+function Profile({ onProfileEdit, onSignOut, isError, isSuccessful, setFormMessages }) {
+  const currentUser = React.useContext(CurrentUserContext);
+
   const {
     inputValues,
     errorMessages,
@@ -14,49 +17,57 @@ function Profile() {
     handleChange,
   } = useFormWithValidation();
 
-  function onProfileEdit(event) {
+  function onSubmit(event) {
     event.preventDefault();
+    onProfileEdit(inputValues.username, inputValues.email);
   }
 
   return (
-    <main className="main page__profile profile">
+    <>
       <Header />
-      <Authorize
-        name="profile"
-        greeting="Привет, Виталий!"
-        isValid={isFormValid}
-        errorText="Ошибка"
-        buttonText="Редактировать"
-        onSubmit={onProfileEdit}
-        link="/"
-        linkText="Выйти из аккаунта"
-      >
-        <Input
-          formType="profile"
-          title="Имя"
-          type="text"
-          name="username"
-          placeholder="Имя"
-          minLength="3"
-          value={inputValues.username}
-          maxLength="40"
-          isInputValid={isInputValid.username}
-          error={errorMessages.username}
-          onChange={handleChange}
-        />
-        <Input
-          formType="profile"
-          title="E-mail"
-          type="email"
-          name="email"
-          placeholder="E-mail"
-          value={inputValues.email}
-          isInputValid={isInputValid.email}
-          error={errorMessages.email}
-          onChange={handleChange}
-        />
-      </Authorize>
-    </main>
+      <main className="main page__profile profile">
+        <Authorize
+          name="profile"
+          greeting={`Привет, ${currentUser.name}!`}
+          isValid={isFormValid}
+          isError={isError}
+          errorText="При обновлении профиля произошла ошибка."
+          buttonText="Редактировать"
+          onSubmit={onSubmit}
+          isSuccessful={isSuccessful}
+          successText="Данные успешно изменены."
+          setFormMessages={setFormMessages}
+          link="/"
+          linkText="Выйти из аккаунта"
+          onLinkClick={onSignOut}
+        >
+          <Input
+            formType="profile"
+            title="Имя"
+            type="text"
+            name="username"
+            placeholder="Имя"
+            minLength="3"
+            value={inputValues.username}
+            maxLength="40"
+            isInputValid={isInputValid.username}
+            error={errorMessages.username}
+            onChange={handleChange}
+          />
+          <Input
+            formType="profile"
+            title="E-mail"
+            type="email"
+            name="email"
+            placeholder="E-mail"
+            value={inputValues.email}
+            isInputValid={isInputValid.email}
+            error={errorMessages.email}
+            onChange={handleChange}
+          />
+        </Authorize>
+      </main>
+    </>
   );
 }
 

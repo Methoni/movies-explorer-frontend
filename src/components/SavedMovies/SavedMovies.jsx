@@ -2,16 +2,21 @@ import React from 'react';
 import Header from '../Header/Header';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
-import { savedMovies } from '../../utils/constants';
+// import { savedMovies } from '../../utils/constants';
 import '../Main/Main.css';
 
-function SavedMovies() {
+function SavedMovies({ movies, addMovie, savedMovies, isLoading }) {
   return (
-    <main className="main page__movies movies">
+    <>
       <Header />
-      <MoviesCardList movies={savedMovies} />
+      <MoviesCardList
+        movies={movies}
+        addMovie={addMovie}
+        savedMovies={savedMovies}
+        isLoading={isLoading}
+      />
       <Footer />
-    </main>
+    </>
   );
 }
 export default SavedMovies;
