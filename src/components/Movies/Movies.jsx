@@ -106,6 +106,7 @@ function Movies({ checkMovie, savedMovies }) {
         isChecked={isChecked}
         handleCheckBoxClick={handleCheckBoxClick}
         searchMovies={searchMovies}
+        searchRequest={searchRequest}
       />
       <Footer />
     </>

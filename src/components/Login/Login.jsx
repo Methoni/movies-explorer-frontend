@@ -4,7 +4,7 @@ import Input from '../Input/Input';
 import useFormWithValidation from '../hooks/useFormWithValidation';
 import '../Main/Main.css';
 
-function Login({ onLogin, isError, setFormMessages }) {
+function Login({ onLogin, isError, setFormMessages, isSending }) {
   const {
     inputValues,
     errorMessages,
@@ -32,6 +32,7 @@ function Login({ onLogin, isError, setFormMessages }) {
         text="Ещё не зарегистрированы? "
         link="/signup"
         linkText="Регистрация"
+        isSending={isSending}
       >
         <Input
           formType="login"
@@ -43,6 +44,7 @@ function Login({ onLogin, isError, setFormMessages }) {
           isInputValid={isInputValid.email}
           error={errorMessages.email}
           onChange={handleChange}
+          pattern={'^w+([.]?w+)@w+([.]?w+)(.w{2,3})+$'}
         />
         <Input
           formType="login"

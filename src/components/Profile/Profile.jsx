@@ -12,6 +12,7 @@ function Profile({
   isError,
   isSuccessful,
   setFormMessages,
+  isSending,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
 
@@ -21,7 +22,12 @@ function Profile({
     isFormValid,
     isInputValid,
     handleChange,
+    updateForm,
   } = useFormWithValidation();
+
+  React.useEffect(() => {
+    updateForm({ username: currentUser.name, email: currentUser.email });
+  }, [updateForm, currentUser]);
 
   function onSubmit(event) {
     event.preventDefault();
@@ -46,13 +52,14 @@ function Profile({
           link="/"
           linkText="Выйти из аккаунта"
           onLinkClick={onSignOut}
+          inputValues={inputValues}
+          isSending={isSending}
         >
           <Input
             formType="profile"
             title="Имя"
             type="text"
             name="username"
-            placeholder={currentUser.name}
             minLength="3"
             value={inputValues.username}
             maxLength="40"
@@ -65,11 +72,11 @@ function Profile({
             title="E-mail"
             type="email"
             name="email"
-            placeholder={currentUser.email}
             value={inputValues.email}
             isInputValid={isInputValid.email}
             error={errorMessages.email}
             onChange={handleChange}
+            pattern={'^w+([.]?w+)@w+([.]?w+)(.w{2,3})+$'}
           />
         </Authorize>
       </main>

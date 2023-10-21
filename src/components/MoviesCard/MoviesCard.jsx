@@ -10,15 +10,14 @@ function MoviesCard({ cardData, checkMovie, deleteMovie, savedMovies }) {
   const minutes = Math.floor(duration) - hours * 60;
 
   const [isChecked, setisChecked] = React.useState(false);
-  const [isRemoved, setisRemoved] = React.useState(false);
-  const [src, setSrc] = React.useState('');
+  const [picSrc, setPicSrc] = React.useState('');
 
   React.useEffect(() => {
     setisChecked(savedMovies.some((movie) => cardData.id === movie.movieId));
   }, [savedMovies, cardData.id, setisChecked]);
 
   function handleCardClick() {
-    if (!isChecked) {
+    if (savedMovies.some((movie) => cardData.id === movie.movieId)) {
       setisChecked(true);
       checkMovie(cardData);
     } else {
@@ -29,14 +28,13 @@ function MoviesCard({ cardData, checkMovie, deleteMovie, savedMovies }) {
 
   function onDelete() {
     deleteMovie(cardData._id);
-    setisRemoved(true);
   }
 
   React.useEffect(() => {
     if (pathname === '/movies') {
-      setSrc(`https://api.nomoreparties.co${cardData.image.url}`);
+      setPicSrc(`https://api.nomoreparties.co${cardData.image.url}`);
     } else {
-      setSrc(cardData.image);
+      setPicSrc(cardData.image);
     }
   }, [pathname, cardData.image]);
 
@@ -46,13 +44,9 @@ function MoviesCard({ cardData, checkMovie, deleteMovie, savedMovies }) {
   }
 
   return (
-    <li
-      className={`movies__card movie-card" ${
-        isRemoved && 'movie-card_removed'
-      }`}
-    >
+    <li className="movies__card movie-card">
       <img
-        src={src}
+        src={picSrc}
         alt={cardData.nameRU}
         className="movie-card__image"
         onClick={handleImageClick}

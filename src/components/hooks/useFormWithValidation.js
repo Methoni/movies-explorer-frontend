@@ -26,12 +26,27 @@ function useFormWithValidation() {
     });
   }
 
+  const setFormValues = React.useCallback((name, value) => {
+    setInputValues((initialInputValues) => {
+      return { ...initialInputValues, [name]: value };
+    });
+  }, []);
+
+  const updateForm = React.useCallback((data = {}) => {
+    setInputValues(data);
+    setErrorMessages({});
+    setIsFormValid(false);
+    setIsInputValid({});
+  }, []);
+
   return {
     inputValues,
     errorMessages,
     isFormValid,
     isInputValid,
     handleChange,
+    setFormValues,
+    updateForm,
   };
 }
 

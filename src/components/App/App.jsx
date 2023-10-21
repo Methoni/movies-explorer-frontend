@@ -14,13 +14,14 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function App() {
   const navigate = useNavigate();
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(localStorage.getItem('jwt'));
   const [currentUser, setCurrentUser] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const [isSearchError, setIsSearchError] = React.useState(false);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [isSuccessful, setIsSuccessful] = React.useState(false);
   const [isError, setIsError] = React.useState(false);
+  const [isSending, setIsSending] = React.useState(false);
 
   React.useEffect(() => {
     if (loggedIn) {
@@ -45,7 +46,6 @@ function App() {
         .checkToken(localStorage.jwt)
         .then((res) => {
           setLoggedIn(true);
-          navigate('/');
         })
         .catch((err) => {
           console.log(err);
@@ -62,6 +62,7 @@ function App() {
   // Блок авторизации и регистрации
 
   function handleLogin(email, password) {
+    setIsSending(true);
     mainApi
       .authorize(email, password)
       .then((res) => {
@@ -72,7 +73,8 @@ function App() {
       .catch((err) => {
         console.log(`Ошибка при авторизации: ${err}`);
         setIsError(true);
-      });
+      })
+      .finally(() => setIsSending(false));
   }
 
   function signOut() {
@@ -82,6 +84,7 @@ function App() {
   }
 
   function handleRegister(username, email, password) {
+    setIsSending(true);
     mainApi
       .register(username, email, password)
       .then((res) => {
@@ -93,10 +96,12 @@ function App() {
       .catch((err) => {
         console.log(`Ошибка при регистрации: ${err}`);
         setIsError(true);
-      });
+      })
+      .finally(() => setIsSending(false));
   }
 
   function handleUpdateUser(username, email) {
+    setIsSending(true);
     mainApi
       .editUserInfo(username, email, localStorage.jwt)
       .then((res) => {
@@ -106,7 +111,8 @@ function App() {
       .catch((err) => {
         console.log(err);
         setIsError(true);
-      });
+      })
+      .finally(() => setIsSending(false));
   }
 
   // Блок с фильмами
@@ -195,6 +201,7 @@ function App() {
                 isError={isError}
                 isSuccessful={isSuccessful}
                 setFormMessages={setFormMessages}
+                isSending={isSending}
               />
             }
           />
@@ -205,6 +212,7 @@ function App() {
                 onLogin={handleLogin}
                 isError={isError}
                 setFormMessages={setFormMessages}
+                isSending={isSending}
               />
             }
           />
@@ -215,6 +223,7 @@ function App() {
                 onRegister={handleRegister}
                 isError={isError}
                 setFormMessages={setFormMessages}
+                isSending={isSending}
               />
             }
           />

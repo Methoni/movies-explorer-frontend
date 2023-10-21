@@ -4,7 +4,7 @@ import Input from '../Input/Input';
 import useFormWithValidation from '../hooks/useFormWithValidation';
 import '../Main/Main.css';
 
-function Register({ onRegister, isError, setFormMessages }) {
+function Register({ onRegister, isError, setFormMessages, isSending }) {
   const {
     inputValues,
     errorMessages,
@@ -32,6 +32,7 @@ function Register({ onRegister, isError, setFormMessages }) {
         text="Уже зарегистрированы? "
         link="/signin"
         linkText="Войти"
+        isSending={isSending}
       >
         <Input
           formType="login"
@@ -56,6 +57,7 @@ function Register({ onRegister, isError, setFormMessages }) {
           isInputValid={isInputValid.email}
           error={errorMessages.email}
           onChange={handleChange}
+          pattern={'^w+([.]?w+)@w+([.]?w+)(.w{2,3})+$'}
         />
         <Input
           formType="login"

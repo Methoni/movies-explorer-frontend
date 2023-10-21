@@ -16,6 +16,7 @@ function MoviesCardList({
   isChecked,
   handleCheckBoxClick,
   searchMovies,
+  searchRequest,
 }) {
   const [publishedMovies, setPublishedMovies] = React.useState(
     publishMovies().base
@@ -23,19 +24,19 @@ function MoviesCardList({
 
   function publishMovies() {
     const counter = {};
-    if (window.innerWidth >= 1024) {
+    if (window.innerWidth >= 1280) {
       counter.base = 16;
       counter.step = 4;
     }
-    if (window.innerWidth <= 1023) {
+    if (window.innerWidth <= 1279) {
       counter.base = 12;
       counter.step = 3;
     }
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1024) {
       counter.base = 8;
       counter.step = 2;
     }
-    if (window.innerWidth <= 480) {
+    if (window.innerWidth <= 649) {
       counter.base = 5;
       counter.step = 2;
     }
@@ -52,6 +53,8 @@ function MoviesCardList({
         isChecked={isChecked}
         handleCheckBoxClick={handleCheckBoxClick}
         searchMovies={searchMovies}
+        searchRequest={searchRequest}
+        isLoading={isLoading}
       />
       <section className="movies__section">
         {isLoading ? (

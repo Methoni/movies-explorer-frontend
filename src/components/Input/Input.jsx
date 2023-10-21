@@ -13,6 +13,7 @@ function Input({
   isInputValid,
   onChange,
   error,
+  isSending,
 }) {
   return (
     <>
@@ -33,6 +34,7 @@ function Input({
           onChange={onChange}
           autoComplete="on"
           required
+          disabled={isSending}
         />
       </label>
       <span className={`input__error`}>{error}</span>
