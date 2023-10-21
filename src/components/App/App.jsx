@@ -1,7 +1,6 @@
 import React from 'react';
-import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { mainApi } from '../../utils/MainApi';
-import { moviesApi } from '../../utils/MoviesApi';
 import './App.css';
 import Main from '../Main/Main.jsx';
 import Movies from '../Movies/Movies.jsx';
@@ -15,17 +14,17 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function App() {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
-  const [allMovies, setAllMovies] = React.useState([]);
-  const [savedMovies, setSavedMovies] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isSearchError, setIsSearchError] = React.useState(false);
+  const [savedMovies, setSavedMovies] = React.useState([]);
   const [isSuccessful, setIsSuccessful] = React.useState(false);
   const [isError, setIsError] = React.useState(false);
 
   React.useEffect(() => {
     if (loggedIn) {
+      setIsLoading(true);
       mainApi
         .getAllNeededData(localStorage.jwt)
         .then(([moviesData, userData]) => {
@@ -34,7 +33,9 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
-        });
+          setIsSearchError(true);
+        })
+        .finally(() => setIsLoading(false));
     }
   }, [loggedIn]);
 
@@ -49,21 +50,6 @@ function App() {
         .catch((err) => {
           console.log(err);
         });
-    }
-  }, []);
-
-  React.useEffect(() => {
-    if (pathname === '/movies' || '/saved-movies') {
-      setIsLoading(true);
-      moviesApi
-        .getMovies()
-        .then((res) => {
-          setAllMovies(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => setIsLoading(false));
     }
   }, []);
 
@@ -90,7 +76,7 @@ function App() {
   }
 
   function signOut() {
-    localStorage.removeItem('jwt');
+    localStorage.clear();
     setLoggedIn(false);
     navigate('/');
   }
@@ -125,6 +111,17 @@ function App() {
 
   // Блок с фильмами
 
+  function handleSaveMovie(cardData) {
+    mainApi
+      .addMovie(cardData, localStorage.jwt)
+      .then((addedMovie) => {
+        setSavedMovies([...savedMovies, addedMovie]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   function handleDeleteMovie(cardId) {
     mainApi
       .deleteMovie(cardId, localStorage.jwt)
@@ -141,24 +138,18 @@ function App() {
   }
 
   function handleCheckMovie(cardData) {
-    // Проверяем, есть ли уже лайк на этой карточке
+    // Проверяем, сохранена ли карточка
     const isChecked = savedMovies.some(
       (movie) => cardData.id === movie.movieId
     );
-    const checkedMovie = savedMovies.filter((movie) => {
+    // Находим карточку и присваиваем movieId
+    const findSavedMovie = savedMovies.filter((movie) => {
       return movie.movieId === cardData.id;
     });
-    if (isChecked) {
-      handleDeleteMovie(checkedMovie[0]._id);
+    if (!isChecked) {
+      handleSaveMovie(cardData);
     } else {
-      mainApi
-        .addMovie(cardData, localStorage.jwt)
-        .then((res) => {
-          setSavedMovies([res, ...savedMovies]);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      handleDeleteMovie(findSavedMovie[0]._id);
     }
   }
 
@@ -174,10 +165,8 @@ function App() {
               <ProtectedRouteElement
                 element={Movies}
                 loggedIn={loggedIn}
-                isLoading={isLoading}
-                movies={allMovies}
                 savedMovies={savedMovies}
-                addMovie={handleCheckMovie}
+                checkMovie={handleCheckMovie}
               />
             }
           />
@@ -188,10 +177,10 @@ function App() {
                 element={SavedMovies}
                 loggedIn={loggedIn}
                 isLoading={isLoading}
-                onDelete={handleDeleteMovie}
-                movies={savedMovies}
                 savedMovies={savedMovies}
-                addMovie={handleCheckMovie}
+                checkMovie={handleCheckMovie}
+                deleteMovie={handleDeleteMovie}
+                isSearchError={isSearchError}
               />
             }
           />

@@ -4,43 +4,22 @@ import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 import './MoviesCardList.css';
 
-function MoviesCardList({ movies, addMovie, isLoading }) {
-  const [isChecked, setIsChecked] = React.useState(false);
-  const [searchResult, setSearchResult] = React.useState('');
-  const [filteredMovies, setFilteredMovies] = React.useState([]);
+function MoviesCardList({
+  checkMovie,
+  deleteMovie,
+  isEmpty,
+  isSearched,
+  isLoading,
+  isSearchError,
+  savedMovies,
+  filteredMovies,
+  isChecked,
+  handleCheckBoxClick,
+  searchMovies,
+}) {
   const [publishedMovies, setPublishedMovies] = React.useState(
     publishMovies().base
   );
-  const [isEmpty, setIsEmpty] = React.useState(true);
-
-  function handleCheckBoxClick() {
-    if (isChecked === false) {
-      setIsChecked(true);
-      filterMovies(searchResult, true, movies);
-    } else {
-      setIsChecked(false);
-      filterMovies(searchResult, false, movies);
-    }
-  }
-
-  function searchMovies(searchRequest) {
-    filterMovies(searchRequest, isChecked, movies);
-    if (movies.length > 0) {
-      setIsEmpty(false);
-    }
-  }
-
-  const filterMovies = React.useCallback((searchRequest, isChecked, movies) => {
-    setSearchResult(searchRequest);
-    setFilteredMovies(
-      movies.filter((movie) => {
-        const searchResult = movie.nameRU
-          .toLowerCase()
-          .includes(searchRequest.toLowerCase());
-        return isChecked ? searchResult && movie.duration <= 40 : searchResult;
-      })
-    );
-  }, []);
 
   function publishMovies() {
     const counter = {};
@@ -74,33 +53,54 @@ function MoviesCardList({ movies, addMovie, isLoading }) {
         handleCheckBoxClick={handleCheckBoxClick}
         searchMovies={searchMovies}
       />
-
-      {isLoading ? (
-        <Preloader />
-      ) : (
-        !isEmpty && (
-          <section className="movies__section">
-            <ul className="movies__list">
-              {filteredMovies.slice(0, publishedMovies).map((cardData) => (
-                <MoviesCard
-                  cardData={cardData}
-                  key={cardData.id}
-                  addMovie={addMovie}
-                />
-              ))}
-            </ul>
-            <button
-              type="button"
-              className={`movies__more ${
-                publishedMovies >= movies.length && 'movies__more_hidden'
-              }`}
-              onClick={addMore}
-            >
-              Ещё
-            </button>
-          </section>
-        )
-      )}
+      <section className="movies__section">
+        {isLoading ? (
+          <Preloader />
+        ) : (
+          !isEmpty && (
+            <>
+              <ul className="movies__list">
+                {filteredMovies.slice(0, publishedMovies).map((cardData) => (
+                  <MoviesCard
+                    cardData={cardData}
+                    key={cardData.id}
+                    checkMovie={checkMovie}
+                    deleteMovie={deleteMovie}
+                    savedMovies={savedMovies}
+                  />
+                ))}
+              </ul>
+              <button
+                type="button"
+                className={`movies__more ${
+                  publishedMovies >= filteredMovies.length &&
+                  'movies__more_hidden'
+                }`}
+                onClick={addMore}
+              >
+                Ещё
+              </button>
+            </>
+          )
+        )}
+        <span
+          className={`${
+            isSearchError ? 'movies__error' : 'movies__error_hidden'
+          }`}
+        >
+          Во время запроса произошла ошибка. Возможно, проблема с соединением
+          или сервер недоступен. Подождите немного и попробуйте ещё раз.
+        </span>
+        <span
+          className={`${
+            filteredMovies <= 0 && isSearched && !isLoading
+              ? 'movies__error'
+              : 'movies__error_hidden'
+          }`}
+        >
+          Ничего не найдено.
+        </span>
+      </section>
     </main>
   );
 }

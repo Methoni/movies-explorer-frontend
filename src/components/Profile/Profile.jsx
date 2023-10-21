@@ -6,7 +6,13 @@ import useFormWithValidation from '../hooks/useFormWithValidation';
 import '../Main/Main.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Profile({ onProfileEdit, onSignOut, isError, isSuccessful, setFormMessages }) {
+function Profile({
+  onProfileEdit,
+  onSignOut,
+  isError,
+  isSuccessful,
+  setFormMessages,
+}) {
   const currentUser = React.useContext(CurrentUserContext);
 
   const {
@@ -46,7 +52,7 @@ function Profile({ onProfileEdit, onSignOut, isError, isSuccessful, setFormMessa
             title="Имя"
             type="text"
             name="username"
-            placeholder="Имя"
+            placeholder={currentUser.name}
             minLength="3"
             value={inputValues.username}
             maxLength="40"
@@ -59,7 +65,7 @@ function Profile({ onProfileEdit, onSignOut, isError, isSuccessful, setFormMessa
             title="E-mail"
             type="email"
             name="email"
-            placeholder="E-mail"
+            placeholder={currentUser.email}
             value={inputValues.email}
             isInputValid={isInputValid.email}
             error={errorMessages.email}

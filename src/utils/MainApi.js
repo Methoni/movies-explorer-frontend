@@ -90,7 +90,7 @@ class MainApi {
       method: 'DELETE',
       headers: {
         authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
       },
     }).then((res) => this._getResponseData(res));
   }
