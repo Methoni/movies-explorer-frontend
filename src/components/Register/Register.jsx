@@ -4,7 +4,14 @@ import Input from '../Input/Input';
 import useFormWithValidation from '../hooks/useFormWithValidation';
 import '../Main/Main.css';
 
-function Register({ onRegister, isError, setFormMessages, isSending }) {
+function Register({
+  onRegister,
+  isError,
+  setIsError,
+  isSending,
+  isSuccessful,
+  setIsSuccessful,
+}) {
   const {
     inputValues,
     errorMessages,
@@ -18,6 +25,16 @@ function Register({ onRegister, isError, setFormMessages, isSending }) {
     onRegister(inputValues.username, inputValues.email, inputValues.password);
   }
 
+  // Сбрасывает ошибку формы при монтировании и при обновлении инпутов
+  React.useEffect(() => {
+    setIsError(false);
+  }, [setIsError, inputValues]);
+
+  // Сбрасывает сообщение формы при монтировании
+  React.useEffect(() => {
+    setIsSuccessful(false);
+  }, [setIsSuccessful]);
+
   return (
     <main className="main page__register register">
       <Authorize
@@ -26,13 +43,13 @@ function Register({ onRegister, isError, setFormMessages, isSending }) {
         isValid={isFormValid}
         isError={isError}
         errorText="При регистрации пользователя произошла ошибка."
-        setFormMessages={setFormMessages}
         buttonText="Зарегистрироваться"
         onSubmit={onSubmit}
         text="Уже зарегистрированы? "
         link="/signin"
         linkText="Войти"
         isSending={isSending}
+        isSuccessful={isSuccessful}
       >
         <Input
           formType="login"
@@ -57,7 +74,6 @@ function Register({ onRegister, isError, setFormMessages, isSending }) {
           isInputValid={isInputValid.email}
           error={errorMessages.email}
           onChange={handleChange}
-          pattern={'^w+([.]?w+)@w+([.]?w+)(.w{2,3})+$'}
         />
         <Input
           formType="login"

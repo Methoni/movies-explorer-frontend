@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import { mainApi } from '../../utils/MainApi';
 import './App.css';
 import Main from '../Main/Main.jsx';
@@ -53,12 +53,6 @@ function App() {
     }
   }, []);
 
-  // Сбрасывает сообщения формы при повторном открытии страницы с формой
-  const setFormMessages = React.useCallback(() => {
-    setIsSuccessful(false);
-    setIsError(false);
-  }, []);
-
   // Блок авторизации и регистрации
 
   function handleLogin(email, password) {
@@ -69,10 +63,12 @@ function App() {
         setLoggedIn(true);
         localStorage.setItem('jwt', res.token);
         navigate('/movies');
+        setIsSuccessful(true);
       })
       .catch((err) => {
         console.log(`Ошибка при авторизации: ${err}`);
         setIsError(true);
+        setIsSuccessful(false);
       })
       .finally(() => setIsSending(false));
   }
@@ -91,11 +87,13 @@ function App() {
         if (res) {
           localStorage.setItem('jwt', res.token);
           handleLogin(email, password);
+          setIsSuccessful(true);
         }
       })
       .catch((err) => {
         console.log(`Ошибка при регистрации: ${err}`);
         setIsError(true);
+        setIsSuccessful(false);
       })
       .finally(() => setIsSending(false));
   }
@@ -111,6 +109,7 @@ function App() {
       .catch((err) => {
         console.log(err);
         setIsError(true);
+        setIsSuccessful(false);
       })
       .finally(() => setIsSending(false));
   }
@@ -199,8 +198,9 @@ function App() {
                 onSignOut={signOut}
                 loggedIn={loggedIn}
                 isError={isError}
+                setIsError={setIsError}
                 isSuccessful={isSuccessful}
-                setFormMessages={setFormMessages}
+                setIsSuccessful={setIsSuccessful}
                 isSending={isSending}
               />
             }
@@ -208,23 +208,35 @@ function App() {
           <Route
             path="/signin"
             element={
-              <Login
-                onLogin={handleLogin}
-                isError={isError}
-                setFormMessages={setFormMessages}
-                isSending={isSending}
-              />
+              loggedIn ? (
+                <Navigate to="/movies" replace />
+              ) : (
+                <Login
+                  onLogin={handleLogin}
+                  isError={isError}
+                  setIsError={setIsError}
+                  isSending={isSending}
+                  isSuccessful={isSuccessful}
+                  setIsSuccessful={setIsSuccessful}
+                />
+              )
             }
           />
           <Route
             path="/signup"
             element={
-              <Register
-                onRegister={handleRegister}
-                isError={isError}
-                setFormMessages={setFormMessages}
-                isSending={isSending}
-              />
+              loggedIn ? (
+                <Navigate to="/movies" replace />
+              ) : (
+                <Register
+                  onRegister={handleRegister}
+                  isError={isError}
+                  setIsError={setIsError}
+                  isSending={isSending}
+                  isSuccessful={isSuccessful}
+                  setIsSuccessful={setIsSuccessful}
+                />
+              )
             }
           />
           <Route path="*" element={<NotFound />} />

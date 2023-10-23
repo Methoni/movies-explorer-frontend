@@ -10,12 +10,11 @@ function Profile({
   onProfileEdit,
   onSignOut,
   isError,
+  setIsError,
   isSuccessful,
-  setFormMessages,
+  setIsSuccessful,
   isSending,
 }) {
-  const currentUser = React.useContext(CurrentUserContext);
-
   const {
     inputValues,
     errorMessages,
@@ -24,6 +23,36 @@ function Profile({
     handleChange,
     updateForm,
   } = useFormWithValidation();
+
+  const currentUser = React.useContext(CurrentUserContext);
+  const [isCurrent, setIsCurrent] = React.useState(false);
+
+  React.useEffect(() => {
+    if (
+      inputValues.username === currentUser.name &&
+      inputValues.email === currentUser.email
+    ) {
+      setIsCurrent(true);
+    } else {
+      setIsCurrent(false);
+    }
+  }, [
+    currentUser.email,
+    currentUser.name,
+    inputValues.email,
+    inputValues.username,
+    setIsCurrent,
+  ]);
+
+  // Сбрасывает ошибку формы при монтировании и при обновлении инпутов
+  React.useEffect(() => {
+    setIsError(false);
+  }, [setIsError, inputValues]);
+
+  // Сбрасывает сообщение формы при монтировании
+  React.useEffect(() => {
+    setIsSuccessful(false);
+  }, [setIsSuccessful]);
 
   React.useEffect(() => {
     updateForm({ username: currentUser.name, email: currentUser.email });
@@ -48,12 +77,12 @@ function Profile({
           onSubmit={onSubmit}
           isSuccessful={isSuccessful}
           successText="Данные успешно изменены."
-          setFormMessages={setFormMessages}
           link="/"
           linkText="Выйти из аккаунта"
           onLinkClick={onSignOut}
           inputValues={inputValues}
           isSending={isSending}
+          isCurrent={isCurrent}
         >
           <Input
             formType="profile"
@@ -76,7 +105,6 @@ function Profile({
             isInputValid={isInputValid.email}
             error={errorMessages.email}
             onChange={handleChange}
-            pattern={'^w+([.]?w+)@w+([.]?w+)(.w{2,3})+$'}
           />
         </Authorize>
       </main>

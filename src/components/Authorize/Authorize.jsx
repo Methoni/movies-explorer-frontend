@@ -14,13 +14,13 @@ function Authorize({
   onSubmit,
   isSuccessful,
   successText,
-  setFormMessages,
   text,
   link,
   linkText,
   onLinkClick,
   inputValues,
   isSending,
+  isCurrent,
 }) {
   return (
     <section className={`page__authorize authorize authorize__type_${name}`}>
@@ -43,9 +43,9 @@ function Authorize({
         onSubmit={onSubmit}
         isSuccessful={isSuccessful}
         successText={successText}
-        setFormMessages={setFormMessages}
         inputValues={inputValues}
         isSending={isSending}
+        isCurrent={isCurrent}
       >
         {children}
       </Form>

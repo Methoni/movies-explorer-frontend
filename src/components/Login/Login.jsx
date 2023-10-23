@@ -4,7 +4,14 @@ import Input from '../Input/Input';
 import useFormWithValidation from '../hooks/useFormWithValidation';
 import '../Main/Main.css';
 
-function Login({ onLogin, isError, setFormMessages, isSending }) {
+function Login({
+  onLogin,
+  isError,
+  setIsError,
+  isSending,
+  isSuccessful,
+  setIsSuccessful,
+}) {
   const {
     inputValues,
     errorMessages,
@@ -12,6 +19,16 @@ function Login({ onLogin, isError, setFormMessages, isSending }) {
     isInputValid,
     handleChange,
   } = useFormWithValidation();
+
+  // Сбрасывает ошибку формы при монтировании и при обновлении инпутов
+  React.useEffect(() => {
+    setIsError(false);
+  }, [setIsError, inputValues]);
+
+  // Сбрасывает сообщение формы при монтировании
+  React.useEffect(() => {
+    setIsSuccessful(false);
+  }, [setIsSuccessful]);
 
   function onSubmit(event) {
     event.preventDefault();
@@ -26,13 +43,13 @@ function Login({ onLogin, isError, setFormMessages, isSending }) {
         isValid={isFormValid}
         isError={isError}
         errorText="При авторизации произошла ошибка."
-        setFormMessages={setFormMessages}
         buttonText="Войти"
         onSubmit={onSubmit}
         text="Ещё не зарегистрированы? "
         link="/signup"
         linkText="Регистрация"
         isSending={isSending}
+        isSuccessful={isSuccessful}
       >
         <Input
           formType="login"
@@ -44,7 +61,6 @@ function Login({ onLogin, isError, setFormMessages, isSending }) {
           isInputValid={isInputValid.email}
           error={errorMessages.email}
           onChange={handleChange}
-          pattern={'^w+([.]?w+)@w+([.]?w+)(.w{2,3})+$'}
         />
         <Input
           formType="login"

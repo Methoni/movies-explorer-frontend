@@ -1,7 +1,6 @@
 import React from 'react';
 import './Form.css';
 import { useLocation } from 'react-router-dom';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Form({
   name,
@@ -13,17 +12,10 @@ function Form({
   onSubmit,
   isSuccessful,
   successText,
-  setFormMessages,
-  inputValues,
   isSending,
+  isCurrent,
 }) {
   const { pathname } = useLocation();
-  const currentUser = React.useContext(CurrentUserContext);
-
-  // Сбрасывает сообщения формы при повторном открытии страницы с формой
-  React.useEffect(() => {
-    setFormMessages(false);
-  }, [setFormMessages]);
 
   return (
     <form
@@ -47,17 +39,9 @@ function Form({
       <button
         type="submit"
         className={`form__button ${name === 'profile' && 'form__button_profile'}
-        ${
-          (name === 'profile' &&
-            inputValues.username === currentUser.name &&
-            inputValues.email === currentUser.email) ||
-          !isValid ||
-          isError
-            ? 'form__button_disabled'
-            : ''
-        }
+         ${isCurrent || !isValid || isError ? 'form__button_disabled' : ''}
         `}
-        disabled={!isValid || isError || isSending}
+        disabled={!isValid || isError || isSending || isCurrent}
       >
         {buttonText}
       </button>
