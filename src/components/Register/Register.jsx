@@ -1,13 +1,17 @@
 import React from 'react';
 import Authorize from '../Authorize/Authorize';
 import Input from '../Input/Input';
-import { useNavigate } from 'react-router-dom';
 import useFormWithValidation from '../hooks/useFormWithValidation';
 import '../Main/Main.css';
 
-function Register() {
-  const navigate = useNavigate();
-
+function Register({
+  onRegister,
+  isError,
+  setIsError,
+  isSending,
+  isSuccessful,
+  setIsSuccessful,
+}) {
   const {
     inputValues,
     errorMessages,
@@ -16,10 +20,20 @@ function Register() {
     handleChange,
   } = useFormWithValidation();
 
-  function onLogin(event) {
+  function onSubmit(event) {
     event.preventDefault();
-    navigate('/signin');
+    onRegister(inputValues.username, inputValues.email, inputValues.password);
   }
+
+  // Сбрасывает ошибку формы при монтировании и при обновлении инпутов
+  React.useEffect(() => {
+    setIsError(false);
+  }, [setIsError, inputValues]);
+
+  // Сбрасывает сообщение формы при монтировании
+  React.useEffect(() => {
+    setIsSuccessful(false);
+  }, [setIsSuccessful]);
 
   return (
     <main className="main page__register register">
@@ -27,12 +41,15 @@ function Register() {
         name="register"
         greeting="Добро пожаловать!"
         isValid={isFormValid}
-        error="При регистрации пользователя произошла ошибка."
+        isError={isError}
+        errorText="При регистрации пользователя произошла ошибка."
         buttonText="Зарегистрироваться"
-        onSubmit={onLogin}
+        onSubmit={onSubmit}
         text="Уже зарегистрированы? "
         link="/signin"
         linkText="Войти"
+        isSending={isSending}
+        isSuccessful={isSuccessful}
       >
         <Input
           formType="login"

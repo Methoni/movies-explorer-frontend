@@ -1,13 +1,17 @@
 import React from 'react';
 import Authorize from '../Authorize/Authorize';
 import Input from '../Input/Input';
-import { useNavigate } from 'react-router-dom';
 import useFormWithValidation from '../hooks/useFormWithValidation';
 import '../Main/Main.css';
 
-function Login() {
-  const navigate = useNavigate();
-
+function Login({
+  onLogin,
+  isError,
+  setIsError,
+  isSending,
+  isSuccessful,
+  setIsSuccessful,
+}) {
   const {
     inputValues,
     errorMessages,
@@ -16,9 +20,19 @@ function Login() {
     handleChange,
   } = useFormWithValidation();
 
-  function onLogin(event) {
+  // Сбрасывает ошибку формы при монтировании и при обновлении инпутов
+  React.useEffect(() => {
+    setIsError(false);
+  }, [setIsError, inputValues]);
+
+  // Сбрасывает сообщение формы при монтировании
+  React.useEffect(() => {
+    setIsSuccessful(false);
+  }, [setIsSuccessful]);
+
+  function onSubmit(event) {
     event.preventDefault();
-    navigate('/profile');
+    onLogin(inputValues.email, inputValues.password);
   }
 
   return (
@@ -27,12 +41,15 @@ function Login() {
         name="register"
         greeting="Рады видеть!"
         isValid={isFormValid}
-        error="При авторизации произошла ошибка."
+        isError={isError}
+        errorText="При авторизации произошла ошибка."
         buttonText="Войти"
-        onSubmit={onLogin}
+        onSubmit={onSubmit}
         text="Ещё не зарегистрированы? "
         link="/signup"
         linkText="Регистрация"
+        isSending={isSending}
+        isSuccessful={isSuccessful}
       >
         <Input
           formType="login"

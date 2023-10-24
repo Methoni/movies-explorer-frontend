@@ -1,4 +1,5 @@
 import React from 'react';
+import validator from 'validator';
 
 function useFormWithValidation() {
   const [inputValues, setInputValues] = React.useState({});
@@ -6,13 +7,24 @@ function useFormWithValidation() {
   const [isFormValid, setIsFormValid] = React.useState(false);
   const [isInputValid, setIsInputValid] = React.useState({});
 
+  function validateEmailInput(inputValue) {
+    return validator.isEmail(inputValue);
+  }
+
   function handleChange(event) {
     const inputElement = event.target;
     const name = inputElement.name;
     const value = inputElement.value;
-    const form = inputElement.form;
-    const validationMessage = inputElement.validationMessage;
-    const isValid = inputElement.validity.valid;
+
+    let isValid = false;
+    let validationMessage = '';
+    if (name === 'email' && value !== '') {
+      isValid = validateEmailInput(value);
+      validationMessage = !isValid ? 'Некорректный e-mail' : '';
+    } else {
+      isValid = inputElement.validity.valid;
+      validationMessage = inputElement.validationMessage;
+    }
 
     setInputValues((initialInputValues) => {
       return { ...initialInputValues, [name]: value };
@@ -20,11 +32,29 @@ function useFormWithValidation() {
     setErrorMessages((initialErrorMessages) => {
       return { ...initialErrorMessages, [name]: validationMessage };
     });
-    setIsFormValid(form.checkValidity());
     setIsInputValid((initialIsValid) => {
       return { ...initialIsValid, [name]: isValid };
     });
   }
+
+  const setFormValues = React.useCallback((name, value) => {
+    setInputValues((initialInputValues) => {
+      return { ...initialInputValues, [name]: value };
+    });
+  }, []);
+
+  React.useEffect(() => {
+    setIsFormValid(
+      Object.values(isInputValid).every((validity) => validity === true)
+    );
+  }, [isInputValid]);
+
+  const updateForm = React.useCallback((data = {}) => {
+    setInputValues(data);
+    setErrorMessages({});
+    setIsFormValid(false);
+    setIsInputValid({});
+  }, []);
 
   return {
     inputValues,
@@ -32,6 +62,8 @@ function useFormWithValidation() {
     isFormValid,
     isInputValid,
     handleChange,
+    setFormValues,
+    updateForm,
   };
 }
 

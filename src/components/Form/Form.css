@@ -35,6 +35,11 @@
   visibility: visible;
 }
 
+.form__message {
+  visibility: visible;
+  color: #3ddc84;
+}
+
 .form__button {
   padding: 0;
   margin-top: 20px;
